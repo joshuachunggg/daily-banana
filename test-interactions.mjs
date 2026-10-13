@@ -11,6 +11,11 @@ const nearestIndex = (x, y, size = 630) => {
   const row = Math.min(8, Math.max(0, Math.round(y / size * 9 - .5)));
   return row * 9 + column;
 };
+const returnedToRack = (grid, cells) => {
+  const next = [...grid];
+  for (const cell of cells) next[cell] = null;
+  return next;
+};
 
 assert.equal(shifted(20, 20, 31), 31);
 assert.equal(shifted(21, 20, 31), 32);
@@ -20,4 +25,5 @@ assert.equal(nearestIndex(0, 0), 0);
 assert.equal(nearestIndex(71, 35), 1);
 assert.equal(nearestIndex(630, 630), 80);
 assert.equal(nearestIndex(-1, 35), null);
-console.log('Validated grouped tile movement and nearest-cell snapping.');
+assert.deepEqual(returnedToRack(['tile-a', null, 'tile-b'], [0, 2]), [null, null, null]);
+console.log('Validated grouped tile movement, return-to-rack, and nearest-cell snapping.');
