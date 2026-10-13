@@ -30,4 +30,5 @@ assert.deepEqual(returnedToRack(['tile-a', null, 'tile-b'], [0, 2]), [null, null
 const page = readFileSync('./dist/index.html', 'utf8');
 assert.match(page, /\.tile \{[^}]*touch-action:none/);
 assert(!page.includes('Dictionary ready. Build away.'));
+assert(page.includes('Play: https://joshuachunggg.github.io/daily-banana/'));
 console.log('Validated grouped tile movement, return-to-rack, and nearest-cell snapping.');
