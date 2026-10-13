@@ -32,7 +32,7 @@ assert.match(page, /\.tile \{[^}]*touch-action:none/);
 assert(!page.includes('Dictionary ready. Build away.'));
 assert.match(page, /id="welcomeDate"/);
 assert.match(page, /How scoring works/);
-assert.match(page, /<table class="rarity-table">/);
+assert.equal((page.match(/<table class="rarity-table">/g) || []).length, 2);
 assert.match(page, /<th scope="col">Rarer than<\/th>/);
 assert.match(page, /<td class="rarity-rare">Rare<\/td><td>7–8<\/td><td>81\.25%\+<\/td>/);
 assert(page.includes('Play: https://joshuachunggg.github.io/daily-banana/'));
