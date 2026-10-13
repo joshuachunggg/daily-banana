@@ -30,5 +30,8 @@ assert.deepEqual(returnedToRack(['tile-a', null, 'tile-b'], [0, 2]), [null, null
 const page = readFileSync('./dist/index.html', 'utf8');
 assert.match(page, /\.tile \{[^}]*touch-action:none/);
 assert(!page.includes('Dictionary ready. Build away.'));
+assert.match(page, /id="welcomeDate"/);
+assert.match(page, /How scoring works/);
+assert.match(page, /Common \(0; under 6\.25%\), Familiar \(1–2; 6\.25–31\.24%\), Less common \(3–4; 31\.25–56\.24%\), Uncommon \(5–6; 56\.25–81\.24%\), and Rare \(7–8; 81\.25%\+\)/);
 assert(page.includes('Play: https://joshuachunggg.github.io/daily-banana/'));
-console.log('Validated grouped tile movement, return-to-rack, and nearest-cell snapping.');
+console.log('Validated grouped tile movement, return-to-rack, nearest-cell snapping, and welcome details.');
