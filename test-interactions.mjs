@@ -34,6 +34,6 @@ assert.match(page, /id="welcomeDate"/);
 assert.match(page, /How scoring works/);
 assert.equal((page.match(/<table class="rarity-table">/g) || []).length, 2);
 assert.match(page, /<th scope="col">Rarer than<\/th>/);
-assert.match(page, /<td class="rarity-rare">Rare<\/td><td>7–8<\/td><td>81\.25%\+<\/td>/);
+assert.match(page, /<td class="rarity-rare">Rare<\/td><td>5–8<\/td><td>56\.25%\+<\/td>/);
 assert(page.includes('Play: https://joshuachunggg.github.io/daily-banana/'));
 console.log('Validated grouped tile movement, return-to-rack, nearest-cell snapping, and welcome details.');

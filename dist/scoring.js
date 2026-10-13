@@ -8,7 +8,7 @@ const lowerBound = (values, value) => {
   return low;
 };
 
-const levelFor = points => points === 0 ? 'Common' : points <= 2 ? 'Familiar' : points <= 4 ? 'Less common' : points <= 6 ? 'Uncommon' : 'Rare';
+const levelFor = points => points === 0 ? 'Common' : points <= 2 ? 'Familiar' : points === 3 ? 'Less common' : points === 4 ? 'Uncommon' : 'Rare';
 
 export function createRarityScorer(entries) {
   const frequencies = new Map(entries), buckets = new Map(), comparisons = new Map();
