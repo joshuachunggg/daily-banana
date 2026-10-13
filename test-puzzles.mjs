@@ -19,6 +19,9 @@ const score = createRarityScorer([['rare',-16],['less',-14],['used',-12],['word'
 assert.equal(score('fiver').points, 8);
 assert.equal(score('word').points, 0);
 assert.equal(score('famous').points, 0);
+assert.equal(score('word').level, 'Common');
+assert.equal(score('rare').level, 'Uncommon');
+assert.equal(score('fiver').level, 'Rare');
 assert(score('rare').rarerThan > score('less').rarerThan);
 assert.equal(score('rare').range, '4–5-letter words');
 console.log(`Validated ${puzzles.length} solvable, non-trivial daily racks.`);
