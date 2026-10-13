@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 
 const shifted = (index, origin, target) => {
   const row = Math.floor(index / 9) + Math.floor(target / 9) - Math.floor(origin / 9);
@@ -26,4 +27,7 @@ assert.equal(nearestIndex(71, 35), 1);
 assert.equal(nearestIndex(630, 630), 80);
 assert.equal(nearestIndex(-1, 35), null);
 assert.deepEqual(returnedToRack(['tile-a', null, 'tile-b'], [0, 2]), [null, null, null]);
+const page = readFileSync('./dist/index.html', 'utf8');
+assert.match(page, /\.tile \{[^}]*touch-action:none/);
+assert(!page.includes('Dictionary ready. Build away.'));
 console.log('Validated grouped tile movement, return-to-rack, and nearest-cell snapping.');
