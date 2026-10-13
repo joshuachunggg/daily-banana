@@ -4,6 +4,6 @@
   "scripts": {
     "start": "node server.mjs",
     "build:daily": "node tools/generate-daily.mjs",
-    "test": "node test-generator.mjs && node test-puzzles.mjs && node test-interactions.mjs && node test-daily.mjs"
+    "test": "node test-generator.mjs && node test-puzzles.mjs && node test-interactions.mjs && node test-daily.mjs && node test-infinite.mjs"
   }
 }
