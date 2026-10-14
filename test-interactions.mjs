@@ -31,6 +31,8 @@ const page = readFileSync('./dist/index.html', 'utf8');
 assert.match(page, /\.tile \{[^}]*touch-action:none/);
 assert(!page.includes('Dictionary ready. Build away.'));
 assert.match(page, /id="welcomeDate"/);
+assert.match(page, /id="scramble">Scramble rack/);
+assert.match(page, /\$\('scramble'\)\.onclick=.*tiles=shuffle\(tiles,randomSeed\(\)\)/);
 assert.match(page, /How scoring works/);
 assert.equal((page.match(/<table class="rarity-table">/g) || []).length, 2);
 assert.match(page, /<th scope="col">Rarer than<\/th>/);
