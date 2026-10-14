@@ -1,5 +1,14 @@
 const random = seed => () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
-const pick = (items, next) => items[Math.floor(next() * items.length)];
+const pickFavoringHardLetters = (items, next) => {
+  const weights = items.map(item => {
+    const word = item.word || item;
+    return 1 + new Set(word).size - new Set(word.replace(/[jqxz]/g, '')).size;
+  });
+  const total = weights.reduce((sum, weight) => sum + weight, 0);
+  let position = next() * total;
+  for (let index = 0; index < items.length; index++) if ((position -= weights[index]) < 0) return items[index];
+  return items.at(-1);
+};
 
 export function solutionGrid(placements) {
   const board = Array(81).fill(null);
@@ -21,11 +30,11 @@ export function generatePuzzle(words, frequencies, seed, minimumFrequency) {
   }
   const next = random(seed);
   for (let attempt = 0; attempt < 3000; attempt++) {
-    const first = pick(candidates, next), firstIndex = 1 + Math.floor(next() * (first.length - 2));
-    const second = pick((crossings.get(first[firstIndex]) || []).filter(entry => entry.word !== first), next);
+    const first = pickFavoringHardLetters(candidates, next), firstIndex = 1 + Math.floor(next() * (first.length - 2));
+    const second = pickFavoringHardLetters((crossings.get(first[firstIndex]) || []).filter(entry => entry.word !== first), next);
     if (!second) continue;
     const thirdVerticalIndex = second.index + 3 < second.word.length ? second.index + 3 : second.index - 3;
-    const third = pick((crossings.get(second.word[thirdVerticalIndex]) || []).filter(entry => entry.word !== first && entry.word !== second.word), next);
+    const third = pickFavoringHardLetters((crossings.get(second.word[thirdVerticalIndex]) || []).filter(entry => entry.word !== first && entry.word !== second.word), next);
     if (!third) continue;
     const placements = [
       { r: 4, c: 4 - firstIndex, w: first, d: 'a' },
@@ -33,7 +42,7 @@ export function generatePuzzle(words, frequencies, seed, minimumFrequency) {
       { r: 4 - second.index + thirdVerticalIndex, c: 4 - third.index, w: third.word, d: 'a' }
     ];
     const solution = solutionGrid(placements), tiles = solution.filter(Boolean).length;
-    if (tiles >= 14 && tiles <= 16) return { placements, solution };
+    if (tiles >= 14 && tiles <= 16 && solution.every((letter, _, board) => !letter || board.filter(tile => tile === letter).length <= 2)) return { placements, solution };
   }
   throw Error('Could not generate today’s puzzle.');
 }

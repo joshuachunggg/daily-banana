@@ -15,6 +15,7 @@ for (let seed = 0; seed < 365; seed++) {
   assert.equal(placements.length, 3);
   assert(placements.every(({ w }) => w.length >= 5 && w.length <= 6 && frequencies.get(w) >= minimumFrequency));
   assert(solution.filter(Boolean).length >= 14 && solution.filter(Boolean).length <= 16);
+  assert(solution.every((letter, _, board) => !letter || board.filter(tile => tile === letter).length <= 2));
   assert(connected(solution));
 }
 console.log('Validated 365 deterministic, connected daily puzzle generations.');
