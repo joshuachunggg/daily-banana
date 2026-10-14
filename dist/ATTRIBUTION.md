@@ -17,5 +17,6 @@ Rarity scoring uses `wordfreq-en-large.json`, exported
 from [rspeer/wordfreq](https://github.com/rspeer/wordfreq)'s large English
 frequency dictionary. The package is licensed under the Apache License 2.0.
 
-Answer validation uses the [TWL06](https://github.com/fogleman/twl06) word
-list, pinned to commit `7e1ca3f`.
+Answer validation uses the NASPA Word List 2023 Edition (NWL2023), sourced
+from a [public mirror](https://github.com/ililim/liv-word-finder) pinned to
+commit `386e730`.

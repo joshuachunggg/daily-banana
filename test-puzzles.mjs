@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import dictionary from './dist/wordfreq-en-25000-log.json' with { type: 'json' };
-import validationWords from './dist/twl06.json' with { type: 'json' };
+import validationWords from './dist/nwl2023.json' with { type: 'json' };
 import { createRarityScorer } from './dist/scoring.js';
 
 const frequencies = new Map(dictionary.filter(([word, frequency]) => /^[a-z]+$/.test(word) && frequency >= -12.5));
@@ -15,6 +15,7 @@ function runs(board) { const all=[]; for(const [vertical,outer] of [[false,9],[t
 function connected(board) { const start=board.findIndex(Boolean), seen=new Set([start]), todo=[start]; while(todo.length){const i=todo.pop(),r=Math.floor(i/9),c=i%9;for(const [y,x] of [[r-1,c],[r+1,c],[r,c-1],[r,c+1]]){const next=y*9+x;if(y>=0&&y<9&&x>=0&&x<9&&board[next]&&!seen.has(next)){seen.add(next);todo.push(next);}}} return seen.size===board.filter(Boolean).length; }
 for(const puzzle of puzzles){const board=boardFor(puzzle), found=runs(board), tiles=board.filter(Boolean).length; assert(connected(board)); assert(tiles>=14&&tiles<=16); assert(found.length>=3); assert(found.every(word=>word.length>=4&&frequencies.has(word))); assert(Math.max(...found.map(word=>word.length))<=tiles*.45);}
 for (const word of ['rapeseed','lantern','sonar','pacer']) assert(acceptedWords.has(word));
+assert(acceptedWords.has('qi'));
 assert(acceptedWords.has('shog'));
 assert(!acceptedWords.has('dgo'));
 const score = createRarityScorer([['rare',-16],['less',-14],['used',-12],['word',-10],['fiver',-20],['other',-18],['longer',-20],['common',-18],['normal',-16],['famous',-14]]);

@@ -9,7 +9,7 @@ const root = fileURLToPath(new URL('.', import.meta.url));
 const dist = resolve(root, 'dist'), dataFile = resolve(root, 'data', 'daily-puzzles.json');
 const dictionary = JSON.parse(await readFile(resolve(dist, 'wordfreq-en-25000-log.json'), 'utf8'));
 const frequencies = new Map(dictionary.filter(([word]) => /^[a-z]+$/.test(word)));
-const validationWords = new Set(JSON.parse(await readFile(resolve(dist, 'twl06.json'), 'utf8')));
+const validationWords = new Set(JSON.parse(await readFile(resolve(dist, 'nwl2023.json'), 'utf8')));
 const generatorWords = [...frequencies.keys()].filter(word => validationWords.has(word));
 const minimumFrequency = -12.5;
 const types = { '.html':'text/html; charset=utf-8', '.js':'text/javascript; charset=utf-8', '.json':'application/json; charset=utf-8', '.txt':'text/plain; charset=utf-8', '.md':'text/markdown; charset=utf-8' };

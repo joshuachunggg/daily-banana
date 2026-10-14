@@ -8,7 +8,7 @@ const dayKey = new Date().toISOString().slice(0, 10);
 const revision = JSON.parse(await readFile(resolve(import.meta.dirname, 'daily-revisions.json'), 'utf8'))[dayKey] || 0;
 const dictionary = JSON.parse(await readFile(resolve(dist, 'wordfreq-en-25000-log.json'), 'utf8'));
 const frequencies = new Map(dictionary.filter(([word]) => /^[a-z]+$/.test(word)));
-const validationWords = new Set(JSON.parse(await readFile(resolve(dist, 'twl06.json'), 'utf8')));
+const validationWords = new Set(JSON.parse(await readFile(resolve(dist, 'nwl2023.json'), 'utf8')));
 const seed = createHash('sha256').update(`daily-banana:${dayKey}:${revision}`).digest().readUInt32LE(0);
 const { solution } = generatePuzzle([...frequencies.keys()].filter(word => validationWords.has(word)), frequencies, seed, -12.5);
 

@@ -43,6 +43,8 @@ assert.equal((page.match(/<table class="rarity-table">/g) || []).length, 2);
 assert.match(page, /<th scope="col">Rarer than<\/th>/);
 assert.match(page, /<td class="rarity-rare">Rare<\/td><td>5–8<\/td><td>25%\+<\/td>/);
 assert(page.includes('score:calculate(saved.found)'));
+assert(page.includes('w.length<2||!dictionary.has(w)'));
+assert(page.includes('Every word needs 2+ letters.'));
 assert(page.includes('Play: https://joshuachunggg.github.io/daily-banana/'));
 assert(page.includes('🍌 ${infinite?'));
 assert(page.includes('Score: ${s.total} · ${found.length} words'));

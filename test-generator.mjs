@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import dictionary from './dist/wordfreq-en-25000-log.json' with { type: 'json' };
-import validationWords from './dist/twl06.json' with { type: 'json' };
+import validationWords from './dist/nwl2023.json' with { type: 'json' };
 import { generatePuzzle } from './dist/puzzle-generator.js';
 
 const minimumFrequency = -12.5;
