@@ -26,7 +26,7 @@ export function createRarityScorer(entries) {
     const { values, range } = comparison;
     const rank = Math.min(values.length - 1, lowerBound(values, frequency));
     const rarity = values.length === 1 ? 0 : 1 - rank / (values.length - 1);
-    const points = Math.round(rarity * 8);
+    const points = rarity < .05 ? 0 : rarity < .075 ? 1 : rarity < .1 ? 2 : rarity < .15 ? 3 : rarity < .25 ? 4 : Math.min(8, 5 + Math.floor((rarity - .25) / .15));
     return { points, level: levelFor(points), rarerThan: Math.round(rarity * 100), range };
   };
 }

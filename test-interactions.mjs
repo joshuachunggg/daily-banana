@@ -41,7 +41,8 @@ assert.match(page, /window\.addEventListener\('pageshow',\(\)=>\{if\(!submittedR
 assert.match(page, /How scoring works/);
 assert.equal((page.match(/<table class="rarity-table">/g) || []).length, 2);
 assert.match(page, /<th scope="col">Rarer than<\/th>/);
-assert.match(page, /<td class="rarity-rare">Rare<\/td><td>5–8<\/td><td>56\.25%\+<\/td>/);
+assert.match(page, /<td class="rarity-rare">Rare<\/td><td>5–8<\/td><td>25%\+<\/td>/);
+assert(page.includes('score:calculate(saved.found)'));
 assert(page.includes('Play: https://joshuachunggg.github.io/daily-banana/'));
 assert(page.includes('🍌 ${infinite?'));
 assert(page.includes('Score: ${s.total} · ${found.length} words'));
