@@ -13,6 +13,9 @@ It also includes `frequency-en-50000.txt` from
 an OpenSubtitles 2018-derived English frequency list. Its content is licensed
 under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 
-Answer validation and rarity scoring use `wordfreq-en-large.json`, exported
+Rarity scoring uses `wordfreq-en-large.json`, exported
 from [rspeer/wordfreq](https://github.com/rspeer/wordfreq)'s large English
 frequency dictionary. The package is licensed under the Apache License 2.0.
+
+Answer validation uses the [TWL06](https://github.com/fogleman/twl06) word
+list, pinned to commit `7e1ca3f`.

@@ -7,8 +7,9 @@ const dist = resolve(import.meta.dirname, '..', 'dist');
 const dayKey = new Date().toISOString().slice(0, 10);
 const dictionary = JSON.parse(await readFile(resolve(dist, 'wordfreq-en-25000-log.json'), 'utf8'));
 const frequencies = new Map(dictionary.filter(([word]) => /^[a-z]+$/.test(word)));
+const validationWords = new Set(JSON.parse(await readFile(resolve(dist, 'twl06.json'), 'utf8')));
 const seed = createHash('sha256').update(`daily-banana:${dayKey}`).digest().readUInt32LE(0);
-const { solution } = generatePuzzle([...frequencies.keys()], frequencies, seed, -12.5);
+const { solution } = generatePuzzle([...frequencies.keys()].filter(word => validationWords.has(word)), frequencies, seed, -12.5);
 
 let shuffleSeed = seed, tiles = solution.filter(Boolean).map((letter, index) => ({ id: `tile-${index}`, letter }));
 for (let index = tiles.length - 1; index > 0; index--) {

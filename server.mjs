@@ -9,6 +9,8 @@ const root = fileURLToPath(new URL('.', import.meta.url));
 const dist = resolve(root, 'dist'), dataFile = resolve(root, 'data', 'daily-puzzles.json');
 const dictionary = JSON.parse(await readFile(resolve(dist, 'wordfreq-en-25000-log.json'), 'utf8'));
 const frequencies = new Map(dictionary.filter(([word]) => /^[a-z]+$/.test(word)));
+const validationWords = new Set(JSON.parse(await readFile(resolve(dist, 'twl06.json'), 'utf8')));
+const generatorWords = [...frequencies.keys()].filter(word => validationWords.has(word));
 const minimumFrequency = -12.5;
 const types = { '.html':'text/html; charset=utf-8', '.js':'text/javascript; charset=utf-8', '.json':'application/json; charset=utf-8', '.txt':'text/plain; charset=utf-8', '.md':'text/markdown; charset=utf-8' };
 const shuffle = (items, seed) => { const copy=[...items]; for(let i=copy.length-1;i>0;i--){seed=(seed*1664525+1013904223)>>>0; const j=seed%(i+1); [copy[i],copy[j]]=[copy[j],copy[i]]; } return copy; };
@@ -24,7 +26,7 @@ async function dailyPuzzle() {
     let store = { puzzles: {} };
     try { store = JSON.parse(await readFile(dataFile, 'utf8')); } catch {}
     if (!store.puzzles?.[day]) {
-      const seed = randomBytes(4).readUInt32LE(0), { placements, solution } = generatePuzzle([...frequencies.keys()], frequencies, seed, minimumFrequency);
+      const seed = randomBytes(4).readUInt32LE(0), { placements, solution } = generatePuzzle(generatorWords, frequencies, seed, minimumFrequency);
       store.puzzles ||= {};
       store.puzzles[day] = { seed, placements, tiles: shuffle(solution.filter(Boolean), seed).map((letter, index) => ({ id: `tile-${index}`, letter })) };
       await writeFile(dataFile, JSON.stringify(store, null, 2));
