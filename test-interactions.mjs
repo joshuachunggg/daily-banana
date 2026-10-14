@@ -35,6 +35,7 @@ assert.match(page, /id="scramble">Scramble rack/);
 assert.match(page, /\$\('scramble'\)\.onclick=.*tiles=shuffle\(tiles,randomSeed\(\)\)/);
 assert(!page.includes('Restart day (dev)'));
 assert.match(page, /daily-banana-run-v4-/);
+assert(page.includes('stateKey=daily.revision?`${gameKey}-${daily.revision}`:gameKey'));
 assert.match(page, /window\.addEventListener\('pagehide',pauseTimer\)/);
 assert.match(page, /window\.addEventListener\('pageshow',\(\)=>\{if\(!submittedResult\)resumeTimer\(\);\}\)/);
 assert.match(page, /How scoring works/);
