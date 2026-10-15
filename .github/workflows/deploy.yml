@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: 22
       - run: |
-          if [ "$(node -e \"import day from './dist/daily.json' with { type: 'json' }; console.log(day.dayKey)\")" != "$(date -u +%F)" ]; then
+          if [ "$(node -e 'import day from "./dist/daily.json" with { type: "json" }; console.log(day.dayKey)')" != "$(date -u +%F)" ]; then
             node tools/generate-daily.mjs
           fi
       - uses: actions/configure-pages@v5
