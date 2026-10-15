@@ -3,7 +3,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { randomBytes } from 'node:crypto';
 import { extname, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { generatePuzzle } from './dist/puzzle-generator.js';
+import { generatePuzzle, variantForSeed } from './dist/puzzle-generator.js';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const dist = resolve(root, 'dist'), dataFile = resolve(root, 'data', 'daily-puzzles.json');
@@ -26,7 +26,7 @@ async function dailyPuzzle() {
     let store = { puzzles: {} };
     try { store = JSON.parse(await readFile(dataFile, 'utf8')); } catch {}
     if (!store.puzzles?.[day]) {
-      const seed = randomBytes(4).readUInt32LE(0), { placements, solution } = generatePuzzle(generatorWords, frequencies, seed, minimumFrequency);
+      const seed = randomBytes(4).readUInt32LE(0), { placements, solution } = generatePuzzle(generatorWords, frequencies, seed, minimumFrequency, variantForSeed(seed));
       store.puzzles ||= {};
       store.puzzles[day] = { seed, placements, tiles: shuffle(solution.filter(Boolean), seed).map((letter, index) => ({ id: `tile-${index}`, letter })) };
       await writeFile(dataFile, JSON.stringify(store, null, 2));
