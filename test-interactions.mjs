@@ -31,6 +31,7 @@ const page = readFileSync('./dist/index.html', 'utf8');
 assert.match(page, /\.tile \{[^}]*touch-action:none/);
 assert(!page.includes('Dictionary ready. Build away.'));
 assert.match(page, /id="welcomeDate"/);
+assert.match(page, /\.welcome-card \{[^}]*max-height:calc\(100dvh - 44px\); overflow-y:auto/);
 assert.match(page, /id="scramble">Scramble rack/);
 assert.match(page, /\$\('scramble'\)\.onclick=.*tiles=shuffle\(tiles,randomSeed\(\)\)/);
 assert(!page.includes('Restart day (dev)'));
