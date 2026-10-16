@@ -40,6 +40,7 @@ assert(page.includes('stateKey=daily.revision?`${gameKey}-${daily.revision}`:gam
 assert.match(page, /window\.addEventListener\('pagehide',pauseTimer\)/);
 assert.match(page, /window\.addEventListener\('pageshow',\(\)=>\{if\(!submittedResult\)resumeTimer\(\);\}\)/);
 assert.match(page, /How scoring works/);
+assert.equal((page.match(/Words are ranked by their absolute frequency across all words\./g) || []).length, 2);
 assert.equal((page.match(/<table class="rarity-table">/g) || []).length, 2);
 assert.equal((page.match(/Invalid submissions:<\/b> −1 point each, up to −3\./g) || []).length, 2);
 assert.match(page, /<th scope="col">Rarer than<\/th>/);
